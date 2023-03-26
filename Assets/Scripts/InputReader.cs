@@ -12,15 +12,17 @@ public class InputReader : MonoBehaviour
     private void Update()
     {
         _direction = Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetButtonDown("Jump") && _playerEntity._isGrounded) {
-            _playerEntity.Jump();
-        }
     }
 
     private void FixedUpdate() {
         _playerEntity.GroundCheck();
-        _playerEntity.MoveHorizontally(_direction);
+        if (Input.GetButtonDown("Jump") && _playerEntity._isGrounded) {
+            _playerEntity.Jump();
+        }
+         if (_playerEntity._mobilePlatform)
+                _playerEntity.JoystickMovement(_direction);
+            else
+                _playerEntity.MoveHorizontally(_direction);
     }
 }
 
